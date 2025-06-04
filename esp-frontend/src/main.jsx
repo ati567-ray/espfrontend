@@ -21,49 +21,58 @@ function RootComponent() {
     };
 
     useEffect(() => {
-   
-        const fetchData = async () => {
-            const configResponse = await fetch('/launchsettings.json');
-            const config = await configResponse.json();
+        const init = async () => {
+            try {
+                const configResponse = await fetch('/launchsettings.json');
+                const config = await configResponse.json();
 
-            fetch(`${config.apiUrl}langzeit`)
-                .then((res) => {
-                    if (!res.ok) throw new Error("Fehler beim Laden");
-                    return res.json();
-                })
-                .then((json) => {
-                    const chartData = [["Zeit", "Temperatur (°C)"]];
-                    json.forEach(([zeit, temp]) => {
-                        chartData.push([zeit, parseFloat(temp)]);
-                    });
-                    setDataPointsLangzeit(chartData);
-                })
-                .catch((err) => {
-                    console.error("Fehler beim Abrufen der Messwerte (Langzeit):", err);
-                    
-                });
 
-            fetch(`${config.apiUrl}kurzzeit`)
-                .then((res) => {
-                    if (!res.ok) throw new Error("Fehler beim Laden");
-                    return res.json();
-                })
-                .then((json) => {
-                    const chartData = [["Zeit", "Temperatur (°C)"]];
-                    json.forEach(([zeit, temp]) => {
-                        chartData.push([zeit, parseFloat(temp)]);
-                    });
-                    setDataPointsKurzzeit(chartData);
-                })
-                .catch((err) => {
-                    console.error("Fehler beim Abrufen der Messwerte (Kurzzeit):", err);
+                const fetchData =  () => {
+           
+
+                    fetch(`${config.apiUrl}langzeit`)
+                        .then((res) => {
+                            if (!res.ok) throw new Error("Fehler beim Laden");
+                            return res.json();
+                        })
+                        .then((json) => {
+                            const chartData = [["Zeit", "Temperatur (°C)"]];
+                            json.forEach(([zeit, temp]) => {
+                                chartData.push([zeit, parseFloat(temp)]);
+                            });
+                            setDataPointsLangzeit(chartData);
+                        })
+                        .catch((err) => {
+                            console.error("Fehler beim Abrufen der Messwerte (Langzeit):", err);
                     
-                });
+                        });
+
+                    fetch(`${config.apiUrl}kurzzeit`)
+                        .then((res) => {
+                            if (!res.ok) throw new Error("Fehler beim Laden");
+                            return res.json();
+                        })
+                        .then((json) => {
+                            const chartData = [["Zeit", "Temperatur (°C)"]];
+                            json.forEach(([zeit, temp]) => {
+                                chartData.push([zeit, parseFloat(temp)]);
+                            });
+                            setDataPointsKurzzeit(chartData);
+                        })
+                        .catch((err) => {
+                            console.error("Fehler beim Abrufen der Messwerte (Kurzzeit):", err);
+                    
+                        });
+                };
+
+                fetchData();
+                const intervalId = setInterval(fetchData, 5000);
+                return () => clearInterval(intervalId);
+            } catch (err) {
+                console.error("Fehler beim Laden der Konfigurationsdatei:", err);
+            }  
         };
-
-        fetchData();
-        const intervalId = setInterval(fetchData, 5000);
-        return () => clearInterval(intervalId);
+        init();
     }, []);
 
     return (
