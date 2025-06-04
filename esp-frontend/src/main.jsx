@@ -21,8 +21,12 @@ function RootComponent() {
     };
 
     useEffect(() => {
-        const fetchData = () => {
-            fetch("http://192.168.0.8:80/langzeitTemperatur")
+   
+        const fetchData = async () => {
+            const configResponse = await fetch('/launchsettings.json');
+            const config = await configResponse.json();
+
+            fetch(`${config.apiUrl}langzeit`)
                 .then((res) => {
                     if (!res.ok) throw new Error("Fehler beim Laden");
                     return res.json();
@@ -39,7 +43,7 @@ function RootComponent() {
                     
                 });
 
-            fetch("http://192.168.0.8:80/kurzzeitTemperatur")
+            fetch(`${config.apiUrl}kurzzeit`)
                 .then((res) => {
                     if (!res.ok) throw new Error("Fehler beim Laden");
                     return res.json();
