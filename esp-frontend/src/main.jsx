@@ -10,7 +10,7 @@ function RootComponent() {
     const [dataPointsKurzzeit, setDataPointsKurzzeit] = useState([
         ["Zeit", "Temperatur (°C)"]
     ]);
-    const [showTable, setShowTable] = useState(false);
+    const [showTable, setShowTable] = useState(true);
 
     const options = {
         title: "Temperaturverlauf",
@@ -86,7 +86,7 @@ function RootComponent() {
             />
 
             <p>
-                Letzte Temperatur:{" "}
+                Derzeitige Temperatur:{" "}
                 {dataPointsKurzzeit.length > 1
                     ? dataPointsKurzzeit[dataPointsKurzzeit.length - 1][1] + " °C"
                     : "Lade..."}
