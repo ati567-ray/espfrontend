@@ -85,12 +85,12 @@ function RootComponent() {
                 options={options}
             />
 
-            <p>
+            <h2>
                 Derzeitige Temperatur:{" "}
                 {dataPointsKurzzeit.length > 1
                     ? dataPointsKurzzeit[dataPointsKurzzeit.length - 1][1] + " °C"
                     : "Lade..."}
-            </p>
+            </h2>
 
             <button
                 onClick={() => setShowTable(!showTable)}
