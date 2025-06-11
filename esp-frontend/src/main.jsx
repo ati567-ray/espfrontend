@@ -97,7 +97,7 @@ function RootComponent() {
             <Chart
                 chartType="LineChart"
                 width="100%"
-                height="600px"
+                height="500px"
                 data={dataPointsLangzeit}
                 options={options}
             />
