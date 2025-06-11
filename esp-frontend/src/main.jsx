@@ -24,8 +24,8 @@ function RootComponent() {
         chartArea: {                      // mehr Platz fürs Chart, weniger für Achsenbeschriftung
             left: 60,
             top: 50,
-            width: '80%',
-            height: '70%'
+            width: '100%',
+            height: '80%'
         },
         crosshair: {                    // wenn Maus über Chart, vertikale Linie anzeigen
             trigger: 'both',
@@ -97,7 +97,7 @@ function RootComponent() {
             <Chart
                 chartType="LineChart"
                 width="100%"
-                height="400px"
+                height="600px"
                 data={dataPointsLangzeit}
                 options={options}
             />
