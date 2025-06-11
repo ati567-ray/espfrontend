@@ -17,8 +17,25 @@ function RootComponent() {
         hAxis: { title: "Datum, Uhrzeit" },
         vAxis: { title: "Temperatur (°C)", minValue: 0 },
         legend: "none",
-        curveType: "function"
+        curveType: "function",
+        pointSize: 5,                    // Punkte bei den Messwerten für bessere Lesbarkeit
+        tooltip: { isHtml: true, textStyle: { fontSize: 14 } },  // schicke Tooltips
+        backgroundColor: '#fafafa',   
+        chartArea: {                      // mehr Platz fürs Chart, weniger für Achsenbeschriftung
+            left: 60,
+            top: 50,
+            width: '80%',
+            height: '70%'
+        },
+        crosshair: {                    // wenn Maus über Chart, vertikale Linie anzeigen
+            trigger: 'both',
+            orientation: 'vertical',
+            color: '#666',
+            opacity: 0.5
+        },
     };
+
+
 
     useEffect(() => {
         const init = async () => {
